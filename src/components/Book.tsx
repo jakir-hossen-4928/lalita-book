@@ -35,8 +35,18 @@ export const Book: React.FC<BookProps> = ({ title, chapters }) => {
     return () => window.removeEventListener("scroll", updateReadingProgress);
   }, []);
 
+  const scrollToChapter = (index: number) => {
+    const element = document.getElementById(`chapter-${index + 1}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-paper to-paper/50">
+    <div className="min-h-screen relative overflow-hidden">
+      <div className="floating-decoration decoration-1" />
+      <div className="floating-decoration decoration-2" />
+      
       <div className="progress-bar w-full">
         <div 
           className="progress-indicator" 
@@ -44,25 +54,41 @@ export const Book: React.FC<BookProps> = ({ title, chapters }) => {
         />
       </div>
       
-      <main className="book-container">
-        <h1 className="chapter-title">{title}</h1>
+      <main className="book-container relative">
+        <h1 className="chapter-title">
+          {title}
+        </h1>
         
         <nav className="mb-12 hidden md:block">
-          <ul className="flex justify-center space-x-6 text-sm font-sans text-accent/80">
+          <ul className="flex justify-center space-x-8 text-sm font-sans text-accent/80">
             {chapters.map((_, index) => (
               <li key={index}>
-                <a
-                  href={`#chapter-${index + 1}`}
-                  className={`transition-colors hover:text-accent ${
+                <button
+                  onClick={() => scrollToChapter(index)}
+                  className={`transition-colors hover:text-accent relative pb-2 ${
                     activeChapter === index ? 'text-accent font-medium' : ''
                   }`}
                 >
+                  {activeChapter === index && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent/30 rounded-full" />
+                  )}
                   Chapter {index + 1}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
         </nav>
+
+        <div className="chapter-navigation">
+          {chapters.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollToChapter(index)}
+              className={`chapter-nav-dot ${activeChapter === index ? 'active' : ''}`}
+              aria-label={`Go to chapter ${index + 1}`}
+            />
+          ))}
+        </div>
 
         {chapters.map((chapter, index) => (
           <div 
@@ -74,6 +100,9 @@ export const Book: React.FC<BookProps> = ({ title, chapters }) => {
             }}
           >
             <div className="decorative-line" />
+            <div className="decorative-corner top-left" />
+            <div className="decorative-corner bottom-right" />
+            
             <h2 className="chapter-heading">Chapter {index + 1}: {chapter.title}</h2>
             <div 
               className="story-content"
@@ -81,7 +110,7 @@ export const Book: React.FC<BookProps> = ({ title, chapters }) => {
                 __html: chapter.content
                   .replace(/\n/g, '<br/>')
                   .split(' ')
-                  .map(word => `<span class="inline-block">${word}</span>`)
+                  .map(word => `<span class="inline-block hover:text-accent/80 transition-colors duration-300">${word}</span>`)
                   .join(' ') 
               }}
             />

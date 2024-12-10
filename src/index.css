@@ -10,20 +10,25 @@
   }
   
   body {
-    @apply bg-paper text-ink font-serif antialiased;
+    @apply bg-gradient-to-br from-paper to-paper/50 text-ink font-serif antialiased min-h-screen;
   }
 }
 
 .book-container {
-  @apply max-w-3xl mx-auto px-6 py-12 md:py-16;
+  @apply max-w-4xl mx-auto px-6 py-12 md:py-16;
 }
 
 .chapter-title {
-  @apply text-4xl md:text-5xl font-serif font-semibold mb-12 text-center;
+  @apply text-5xl md:text-6xl font-serif font-semibold mb-16 text-center relative;
   background: linear-gradient(to right, #2D3748 0%, #4A5568 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: fade-in 0.8s ease-out;
+  animation: title-reveal 1.2s ease-out;
+}
+
+.chapter-title::after {
+  content: "";
+  @apply absolute left-1/2 bottom-0 w-24 h-1 bg-accent/30 transform -translate-x-1/2 rounded-full;
 }
 
 .chapter-heading {
@@ -39,15 +44,27 @@
 }
 
 .progress-bar {
-  @apply fixed top-0 left-0 h-1 bg-accent/10 backdrop-blur-sm;
+  @apply fixed top-0 left-0 h-1.5 bg-accent/5 backdrop-blur-sm;
   transition: width 0.2s ease;
   z-index: 50;
 }
 
 .progress-indicator {
-  @apply h-full bg-accent/60;
+  @apply h-full;
+  background: linear-gradient(to right, rgba(74, 85, 104, 0.4), rgba(74, 85, 104, 0.8));
   transition: width 0.2s ease;
-  box-shadow: 0 0 8px rgba(74, 85, 104, 0.2);
+  box-shadow: 0 0 12px rgba(74, 85, 104, 0.2);
+}
+
+@keyframes title-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-in {
@@ -73,24 +90,69 @@
 }
 
 .chapter-card {
-  @apply relative p-8 mb-16 rounded-lg;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3));
-  backdrop-filter: blur(10px);
+  @apply relative p-8 mb-16 rounded-xl overflow-hidden;
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4));
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(74, 85, 104, 0.1);
   box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
 }
 
 .chapter-card:hover {
   transform: translateY(-2px);
   box-shadow: 
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    0 10px 15px -3px rgba(0, 0, 0, 0.08),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
 }
 
 .decorative-line {
-  @apply absolute left-0 top-0 h-full w-1 rounded-l-lg;
+  @apply absolute left-0 top-0 h-full w-1.5 rounded-l-xl;
   background: linear-gradient(to bottom, #4A5568, transparent);
+}
+
+.chapter-navigation {
+  @apply fixed right-8 top-1/2 transform -translate-y-1/2 hidden xl:flex flex-col gap-4 z-50;
+}
+
+.chapter-nav-dot {
+  @apply w-3 h-3 rounded-full bg-accent/20 cursor-pointer transition-all duration-300;
+}
+
+.chapter-nav-dot.active {
+  @apply bg-accent/60 w-4 h-4;
+}
+
+.decorative-corner {
+  @apply absolute w-16 h-16 opacity-10;
+  background: radial-gradient(circle at center, rgba(74, 85, 104, 0.3) 0%, transparent 70%);
+}
+
+.top-left {
+  @apply top-0 left-0;
+  transform: translate(-30%, -30%);
+}
+
+.bottom-right {
+  @apply bottom-0 right-0;
+  transform: translate(30%, 30%);
+}
+
+.floating-decoration {
+  @apply absolute pointer-events-none opacity-20;
+  background: linear-gradient(45deg, #4A5568, transparent);
+  filter: blur(40px);
+  border-radius: 50%;
+}
+
+.decoration-1 {
+  @apply w-64 h-64 -top-32 -left-32;
+}
+
+.decoration-2 {
+  @apply w-96 h-96 -bottom-48 -right-48;
+  transform: rotate(45deg);
 }

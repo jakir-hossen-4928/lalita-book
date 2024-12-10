@@ -22,7 +22,7 @@ export const Book: React.FC<BookProps> = ({ title, chapters }) => {
       setReadingProgress(progress);
 
       // Update active chapter based on scroll position
-      const chapterElements = document.querySelectorAll('.chapter-card');
+      const chapterElements = document.querySelectorAll('.chapter-content');
       chapterElements.forEach((element, index) => {
         const rect = element.getBoundingClientRect();
         if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
@@ -94,15 +94,11 @@ export const Book: React.FC<BookProps> = ({ title, chapters }) => {
           <div 
             key={index} 
             id={`chapter-${index + 1}`}
-            className="chapter-card"
+            className="chapter-content"
             style={{ 
               animationDelay: `${index * 0.2}s`,
             }}
           >
-            <div className="decorative-line" />
-            <div className="decorative-corner top-left" />
-            <div className="decorative-corner bottom-right" />
-            
             <h2 className="chapter-heading">Chapter {index + 1}: {chapter.title}</h2>
             <div 
               className="story-content"

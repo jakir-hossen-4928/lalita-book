@@ -89,31 +89,6 @@
   }
 }
 
-.chapter-card {
-  @apply relative p-8 mb-16 rounded-xl overflow-hidden;
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4));
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(74, 85, 104, 0.1);
-  box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 2px 4px -1px rgba(0, 0, 0, 0.03),
-    inset 0 2px 4px rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-.chapter-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 10px 15px -3px rgba(0, 0, 0, 0.08),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05),
-    inset 0 2px 4px rgba(255, 255, 255, 0.2);
-}
-
-.decorative-line {
-  @apply absolute left-0 top-0 h-full w-1.5 rounded-l-xl;
-  background: linear-gradient(to bottom, #4A5568, transparent);
-}
-
 .chapter-navigation {
   @apply fixed right-8 top-1/2 transform -translate-y-1/2 hidden xl:flex flex-col gap-4 z-50;
 }
@@ -126,19 +101,13 @@
   @apply bg-accent/60 w-4 h-4;
 }
 
-.decorative-corner {
-  @apply absolute w-16 h-16 opacity-10;
-  background: radial-gradient(circle at center, rgba(74, 85, 104, 0.3) 0%, transparent 70%);
+.chapter-content {
+  @apply mb-24 pb-12 relative;
+  border-bottom: 1px solid rgba(74, 85, 104, 0.1);
 }
 
-.top-left {
-  @apply top-0 left-0;
-  transform: translate(-30%, -30%);
-}
-
-.bottom-right {
-  @apply bottom-0 right-0;
-  transform: translate(30%, 30%);
+.chapter-content:last-child {
+  border-bottom: none;
 }
 
 .floating-decoration {

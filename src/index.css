@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-paper text-ink font-serif antialiased;
   }
@@ -16,6 +20,10 @@
 
 .chapter-title {
   @apply text-3xl md:text-4xl font-serif font-semibold mb-8 text-center;
+}
+
+.chapter-heading {
+  @apply text-2xl md:text-3xl font-serif font-semibold mt-16 mb-6;
 }
 
 .story-content {

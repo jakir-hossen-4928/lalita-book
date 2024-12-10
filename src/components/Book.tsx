@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-interface BookProps {
+interface Chapter {
   title: string;
   content: string;
 }
 
-export const Book: React.FC<BookProps> = ({ title, content }) => {
+interface BookProps {
+  title: string;
+  chapters: Chapter[];
+}
+
+export const Book: React.FC<BookProps> = ({ title, chapters }) => {
   const [readingProgress, setReadingProgress] = useState(0);
 
   useEffect(() => {
@@ -31,10 +36,15 @@ export const Book: React.FC<BookProps> = ({ title, content }) => {
       
       <main className="book-container">
         <h1 className="chapter-title">{title}</h1>
-        <div 
-          className="story-content"
-          dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br/>') }}
-        />
+        {chapters.map((chapter, index) => (
+          <div key={index} className="mb-16">
+            <h2 className="chapter-heading">Chapter {index + 1}: {chapter.title}</h2>
+            <div 
+              className="story-content"
+              dangerouslySetInnerHTML={{ __html: chapter.content.replace(/\n/g, '<br/>') }}
+            />
+          </div>
+        ))}
       </main>
     </div>
   );

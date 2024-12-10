@@ -35,6 +35,12 @@ export default {
             p: {
               marginBottom: "1.5em",
             },
+            h2: {
+              marginTop: "2em",
+              marginBottom: "1em",
+              fontSize: "1.75em",
+              fontWeight: "600",
+            },
           },
         },
       },

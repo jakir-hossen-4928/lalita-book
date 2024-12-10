@@ -41,6 +41,14 @@ export default {
               fontSize: "1.75em",
               fontWeight: "600",
             },
+            a: {
+              color: "#4A5568",
+              textDecoration: "none",
+              transition: "color 0.2s ease",
+              "&:hover": {
+                color: "#2D3748",
+              },
+            },
           },
         },
       },

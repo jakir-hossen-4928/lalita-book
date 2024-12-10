@@ -15,27 +15,82 @@
 }
 
 .book-container {
-  @apply max-w-2xl mx-auto px-6 py-12 md:py-16;
+  @apply max-w-3xl mx-auto px-6 py-12 md:py-16;
 }
 
 .chapter-title {
-  @apply text-3xl md:text-4xl font-serif font-semibold mb-8 text-center;
+  @apply text-4xl md:text-5xl font-serif font-semibold mb-12 text-center;
+  background: linear-gradient(to right, #2D3748 0%, #4A5568 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fade-in 0.8s ease-out;
 }
 
 .chapter-heading {
-  @apply text-2xl md:text-3xl font-serif font-semibold mt-16 mb-6;
+  @apply text-2xl md:text-3xl font-serif font-semibold mt-20 mb-8;
+  opacity: 0;
+  animation: slide-in 0.6s ease-out forwards;
 }
 
 .story-content {
   @apply prose prose-lg mx-auto;
+  opacity: 0;
+  animation: fade-in 1s ease-out forwards;
 }
 
 .progress-bar {
-  @apply fixed top-0 left-0 h-1 bg-accent/20;
+  @apply fixed top-0 left-0 h-1 bg-accent/10 backdrop-blur-sm;
   transition: width 0.2s ease;
+  z-index: 50;
 }
 
 .progress-indicator {
-  @apply h-full bg-accent/40;
+  @apply h-full bg-accent/60;
   transition: width 0.2s ease;
+  box-shadow: 0 0 8px rgba(74, 85, 104, 0.2);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.chapter-card {
+  @apply relative p-8 mb-16 rounded-lg;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(74, 85, 104, 0.1);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chapter-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.decorative-line {
+  @apply absolute left-0 top-0 h-full w-1 rounded-l-lg;
+  background: linear-gradient(to bottom, #4A5568, transparent);
 }
